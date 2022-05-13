@@ -5,9 +5,14 @@ namespace Movies.Data.Repositories
 {
     public class MovieRepository : IMovieRepository
     {
+        private readonly algebramssqlhost_moviesContext _context;
+        public MovieRepository(algebramssqlhost_moviesContext context)
+        {
+            _context = context;
+        }
         public IEnumerable<Movie> GetAll()
         {
-            return null;
+            return _context.Movies.ToList();
         }
 
         public Movie GetMovieById(int id)
