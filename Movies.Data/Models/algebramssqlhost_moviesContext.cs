@@ -23,7 +23,7 @@ namespace Movies.Data.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=mssql9.mojsite.com,1555; Database=algebramssqlhost_movies; User Id=algebramssqlhost_ol_oasp_dev_01_21_l_nek; Password=2021_alge_TESTDEV_2022; MultipleActiveResultSets=true; TrustCertificate=true;");
+                optionsBuilder.UseSqlServer("Server=mssql9.mojsite.com,1555; Database=algebramssqlhost_movies; User Id=algebramssqlhost_ol_oasp_dev_01_21_l_nek; Password=2021_alge_TESTDEV_2022; MultipleActiveResultSets=true;");
             }
         }
 
