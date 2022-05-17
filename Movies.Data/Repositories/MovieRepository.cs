@@ -22,6 +22,9 @@ namespace Movies.Data.Repositories
 
         public Movie InsertMovie(Movie new_movie)   // bolje bi bilo da je umjesto public Movie --> public void, pa ne moramo vracati result.Entity
         {
+            // Autoincrement za Id
+            new_movie.Id = GetAll().Max(m => m.Id) + 1;
+
             var result = _context.Movies.Add(new_movie);
             _context.SaveChanges();
 
@@ -43,7 +46,12 @@ namespace Movies.Data.Repositories
         }
         public Movie DeleteMovie(int id)
         {
-            return null;
+            var find_movie = GetMovieById(id);
+
+            var result = _context.Movies.Remove(find_movie);
+            _context.SaveChanges();
+
+            return result.Entity;
         }
 
         public IEnumerable<Movie> QueryStringFilter(string s, string orderby, int per_page)

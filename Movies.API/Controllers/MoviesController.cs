@@ -67,11 +67,13 @@ namespace Movies.API.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                {
+                {                    
                     return BadRequest(ModelState);
                 }
                 // Napomena: svojstvo primarnog kljuca nije auto increment!
                 // DZ: programsko rjesenje za provjeru max vrijednosti svojstva id zapisa u tablici, te uvecanje za 1 tik prije kreiranja novog zapisa
+                // RJESENJE je u MovieRepository klasi u metodi InsertMovie
+                
                 _movieRepository.InsertMovie(new_movie);
 
                 return Ok("Zapis je kreiran!");
@@ -88,7 +90,7 @@ namespace Movies.API.Controllers
 
 
         // PUT: api/movies/5
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public ActionResult PutMovie(int id, Movie update_movie)
         {
             // 1. Provjera Id-a (postoji li zapis u tablici)
@@ -130,6 +132,26 @@ namespace Movies.API.Controllers
 
         // DZ!!! !!!
         // DELETE: api/movies/5
+        [HttpDelete("{id:int}")]
+        public ActionResult DeleteMovie(int id)
+        {
+            try
+            {
+                var movie = _movieRepository.GetMovieById(id);
+
+                if (movie == null)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, "Rezultat nije pronađen!");
+                }
+
+                _movieRepository.DeleteMovie(id);
+                return Ok("Zapisan je izbrisan!");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Nije moguće prikazati rezultate, dogodila se greška!");
+            }
+        }
 
 
     }
