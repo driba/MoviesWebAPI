@@ -16,8 +16,8 @@ namespace Movies.Data.Repositories
         }
 
         public Movie GetMovieById(int id)
-        {
-            return null;
+        {            
+            return _context.Movies.FirstOrDefault(m => m.Id == id);
         }
 
         public Movie InsertMovie(Movie new_movie)
