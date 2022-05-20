@@ -9,6 +9,6 @@ namespace Movies.Data.Interfaces
         Movie InsertMovie(Movie movie);
         Movie UpdateMovie(Movie movie);
         Movie DeleteMovie(int id);
-        IEnumerable<Movie> QueryStringFilter(string s, string orderby, int per_page);
+        IEnumerable<Movie> QueryStringFilter(string s, string orderby, int per_page, int page);
     }
 }

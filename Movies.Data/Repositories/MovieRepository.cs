@@ -54,9 +54,35 @@ namespace Movies.Data.Repositories
             return result.Entity;
         }
 
-        public IEnumerable<Movie> QueryStringFilter(string s, string orderby, int per_page)
+        public IEnumerable<Movie> QueryStringFilter(string s, string orderby, int per_page, int page)
         {
-            return null;
+            // 1. dohvati filmove po parametru s 
+            var results = _context.Movies.Where(m => m.Title.Contains(s));
+
+            if (results.Any())
+            {
+                // 2. Poredaj rezultate po parametru "orderby"
+                switch (orderby)
+                {
+                    case "desc":
+                        results = results.OrderByDescending(m => m.Id);
+                        break;
+                    default:
+                        results = results.OrderBy(m => m.Id);
+                        break;
+                }
+
+                // 3. listaj rezultate po parametru per_page
+                    // TODO: provjeriti gresku kod page = 0
+                if (per_page != 0 && per_page > 0)
+                {
+                    results = results.Skip((page - 1) * per_page).Take(per_page);
+                }
+
+            }
+
+
+            return results;
         }
     }
 }

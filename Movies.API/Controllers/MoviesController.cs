@@ -154,5 +154,20 @@ namespace Movies.API.Controllers
         }
 
 
+        // GET: api/movies/search
+        [HttpGet("search")]
+        public ActionResult SearchByQueryString(string s, string? orderby = "asc", int per_page = 10, int page = 1)
+        {
+            try
+            {
+                return Ok(_movieRepository.QueryStringFilter(s, orderby, per_page, page));
+            }
+            catch
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Greška u dohvatu podataka!");
+            }
+        }
+
     }
 }
