@@ -21,14 +21,7 @@ namespace Movies.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Movie>> GetMovies()
         {
-            try
-            {
-                return Ok(_movieRepository.GetAll());
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            };
+            
         }
 
 
@@ -83,9 +76,6 @@ namespace Movies.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-
-            return Ok();
-
         }
 
 
