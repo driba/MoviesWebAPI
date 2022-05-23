@@ -23,8 +23,9 @@ namespace Movies.Data.Repositories
         public Movie InsertMovie(Movie new_movie)   // bolje bi bilo da je umjesto public Movie --> public void, pa ne moramo vracati result.Entity
         {
             // Autoincrement za Id
+            int new_id = 1;
             new_movie.Id = GetAll().Max(m => m.Id) + 1;
-
+            
             var result = _context.Movies.Add(new_movie);
             _context.SaveChanges();
 

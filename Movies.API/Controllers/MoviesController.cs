@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Data.Interfaces;
 using Movies.Data.Models;
@@ -21,7 +22,14 @@ namespace Movies.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Movie>> GetMovies()
         {
-            
+            try
+            {
+                return Ok(_movieRepository.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            };
         }
 
 
@@ -52,6 +60,7 @@ namespace Movies.API.Controllers
 
         // POST: api/movies
         [HttpPost]
+        [Authorize]
         public ActionResult PostMovie(Movie new_movie)
         {
             // 1. odgovor -> Unos je uspio, HTTP 200
@@ -75,12 +84,14 @@ namespace Movies.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            }            
+
         }
 
 
         // PUT: api/movies/5
         [HttpPut("{id:int}")]
+        [Authorize]
         public ActionResult PutMovie(int id, Movie update_movie)
         {
             // 1. Provjera Id-a (postoji li zapis u tablici)
@@ -123,6 +134,7 @@ namespace Movies.API.Controllers
         // DZ!!! !!!
         // DELETE: api/movies/5
         [HttpDelete("{id:int}")]
+        [Authorize]
         public ActionResult DeleteMovie(int id)
         {
             try
